@@ -56,5 +56,11 @@ namespace TemplateParser.Test
             var result = TemplateParser.GetSearchPattern(placeholder);
             Assert.Equal(pattern, result);
         }
+
+        [Fact]
+        public void ParseTemplate_EmptyTemplate_ShouldThrow_Test()
+        {
+            Assert.Throws<ArgumentNullException>(() => TemplateParser.Render(null, _variableValues));
+        }
     }
 }
