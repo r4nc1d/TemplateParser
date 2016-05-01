@@ -15,6 +15,9 @@ namespace TemplateParser.Test
             };
         }
 
+        // Given i have an template
+        // When i parse it
+        // Then i should be able to match the string 
         [Fact]
         public void ParseTemplateConstructor_ShouldBeAbleToMatch_Test()
         {
@@ -29,6 +32,9 @@ namespace TemplateParser.Test
             Assert.Equal("Hello my name is Jon Doe", result);
         }
 
+        // Given i have an empty template
+        // When i try to parse it 
+        // Then should throw an exception
         [Theory()]
         [InlineData(null)]
         public void Constructor_InvalidName_ExceptionThrown(string name)
@@ -36,6 +42,9 @@ namespace TemplateParser.Test
             Assert.Throws<ArgumentNullException>(() => new TemplateParser(name));
         }
 
+        // Given i have an template with either an brace or bracket for an placeholder
+        // When i try to parse it
+        // Then i should be able to match the string
         [Theory()]
         [InlineData(@"Hello my name is [Name] [LastName]", Placeholder.Brace)]
         [InlineData(@"Hello my name is {Name} {LastName}", Placeholder.Bracket)]
@@ -48,15 +57,24 @@ namespace TemplateParser.Test
             Assert.Equal("Hello my name is Jon Doe", result);
         }
 
+        // Given i have a search pattern
+        // When the placeholder is either brace or bracket 
+        // Then i should be able to match the pattern
         [Theory()]
         [InlineData(Placeholder.Bracket, @"\{([a-z0-9_.\-]+)\}")]
         [InlineData(Placeholder.Brace, @"\[([a-z0-9_.\-]+)\]")]
         public void GetSearchPattern_ShouldBeAbleToMatch_Test(Placeholder placeholder, string pattern)
         {
+            // When
             var result = TemplateParser.GetSearchPattern(placeholder);
+
+            // Then
             Assert.Equal(pattern, result);
         }
 
+        // Given i have an empty template
+        // When i try to parse it 
+        // Then should throw an exception
         [Fact]
         public void ParseTemplate_EmptyTemplate_ShouldThrow_Test()
         {
