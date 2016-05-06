@@ -111,20 +111,15 @@ using a complex object
 public class Person
 {
     public string FirstName { get; set; }
-
     public string LastName { get; set; }
-
     public Address Address { get; set; }
 }
 
 public class Address
 {
     public string Street { get; set; }
-
     public int PostalCode { get; set; }
-
-    // Circular property
-    public Person Person { get; set; }
+    public Person Person { get; set; } // Circular property
 }
 
 var person = new Person
