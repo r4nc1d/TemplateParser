@@ -6,12 +6,13 @@ namespace TemplateParser.Test
 {
     public class TemplateParserTest
     {
-        private readonly Dictionary<string, object> _variableValues;
+        private readonly Dictionary<string, PropertyMetaData> _variableValues;
         public TemplateParserTest()
         {
-            _variableValues = new Dictionary<string, object>
+            _variableValues = new Dictionary<string, PropertyMetaData>
             {
-                {"Name", "Jon"}, {"LastName", "Doe"},
+                {"Name", new PropertyMetaData() {Type = typeof (string), Value = "Jon"}},
+                {"LastName", new PropertyMetaData() {Type = typeof (string), Value = "Doe"}},
             };
         }
 
@@ -26,7 +27,7 @@ namespace TemplateParser.Test
             var parser = new TemplateParser(template);
 
             // When
-            var result = parser.Render(_variableValues, Placeholder.Bracket);
+            var result = parser.Render(_variableValues, Placeholder.Brace);
 
             // Then
             Assert.Equal("Hello my name is Jon Doe", result);
@@ -46,8 +47,8 @@ namespace TemplateParser.Test
         // When i try to parse it
         // Then i should be able to match the string
         [Theory()]
-        [InlineData(@"Hello my name is [Name] [LastName]", Placeholder.Brace)]
-        [InlineData(@"Hello my name is {Name} {LastName}", Placeholder.Bracket)]
+        [InlineData(@"Hello my name is [Name] [LastName]", Placeholder.Bracket)]
+        [InlineData(@"Hello my name is {Name} {LastName}", Placeholder.Brace)]
         public void ParseTemplate_ShouldBeAbleToMatch_Test(string template, Placeholder placeholder)
         {
             // When
@@ -61,8 +62,8 @@ namespace TemplateParser.Test
         // When the placeholder is either brace or bracket 
         // Then i should be able to match the pattern
         [Theory()]
-        [InlineData(Placeholder.Bracket, @"\{([a-z0-9_.\-]+)\}")]
-        [InlineData(Placeholder.Brace, @"\[([a-z0-9_.\-]+)\]")]
+        [InlineData(Placeholder.Brace, @"\{([a-z0-9_.\-]+)\}")]
+        [InlineData(Placeholder.Bracket, @"\[([a-z0-9_.\-]+)\]")]
         public void GetSearchPattern_ShouldBeAbleToMatch_Test(Placeholder placeholder, string pattern)
         {
             // When
@@ -78,7 +79,7 @@ namespace TemplateParser.Test
         [Fact]
         public void ParseTemplate_EmptyTemplate_ShouldThrow_Test()
         {
-            Assert.Throws<ArgumentNullException>(() => TemplateParser.Render(null, _variableValues));
+            Assert.Throws<ArgumentNullException>(() => TemplateParser.Render(null, _variableValues, Placeholder.Brace));
         }
     }
 }

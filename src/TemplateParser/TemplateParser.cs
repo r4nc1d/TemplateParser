@@ -38,7 +38,7 @@ namespace TemplateParser
         /// <param name="variables">Variables that can be substituted in the template string</param>
         /// <param name="placeholder"></param>
         /// <returns>The rendered template string</returns>
-        public string Render(IDictionary<string, object> variables, Placeholder placeholder)
+        public string Render(IDictionary<string, PropertyMetaData> variables, Placeholder placeholder)
         {
             return Render(TemplateString, variables, placeholder);
         }
@@ -48,12 +48,13 @@ namespace TemplateParser
         /// <param name="variables">Variables that can be substituted in the template string</param>
         /// <param name="placeholder"></param>
         /// <returns>The rendered template string</returns>
-        public static string Render(string templateString, IDictionary<string, object> variables, Placeholder placeholder = Placeholder.Brace)
+        public static string Render(string templateString, IDictionary<string, PropertyMetaData> variables, Placeholder placeholder)
         {
             if (templateString == null)
                 throw new ArgumentNullException(nameof(templateString));
 
             var pattern = GetSearchPattern(placeholder);
+
             return Regex.Replace(templateString, pattern, match =>
             {
                 switch (match.Value[0])
@@ -64,11 +65,11 @@ namespace TemplateParser
                         break;
                     case '{':
                         if (variables.ContainsKey(match.Groups[1].Value))
-                            return variables[match.Groups[1].Value].ToString();
+                            return GetValue(variables, match.Groups[1].Value);
                         break;
                     case '[':
                         if (variables.ContainsKey(match.Groups[1].Value))
-                            return variables[match.Groups[1].Value].ToString();
+                            return GetValue(variables, match.Groups[1].Value);
                         break;
                 }
                 return "";
@@ -85,16 +86,28 @@ namespace TemplateParser
             string pattern;
             switch (placeholder)
             {
-                case Placeholder.Brace:
+                case Placeholder.Bracket:
                     pattern = @"\[([a-z0-9_.\-]+)\]";
                     break;
-                case Placeholder.Bracket:
+                case Placeholder.Brace:
                     pattern = @"\{([a-z0-9_.\-]+)\}";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(placeholder), placeholder, null);
             }
             return pattern;
+        }
+
+        private static string GetValue(IDictionary<string, PropertyMetaData> placeholders, string key)
+        {
+            PropertyMetaData returnValue;
+            if (!placeholders.TryGetValue(key, out returnValue))
+            {
+                returnValue = new PropertyMetaData { Type = typeof(string), Value = "" };
+            }
+
+            return PropertyMetaData.SanitizeProperty(returnValue) == null ?
+                "" : PropertyMetaData.SanitizeProperty(returnValue).ToString();
         }
     }
 }
