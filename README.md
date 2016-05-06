@@ -106,7 +106,7 @@ var template = @"Hello my name is {Name} {LastName}";
 var result = TemplateParser.Render(template, variableValues, Placeholder.Brace);
 ```
 
-using a complex object
+when using an complex object, there is an helper class called TypeExtensions that will allow you to get all the properties from the object and store it in an dictionary
 ```csharp
 public class Person
 {
