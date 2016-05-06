@@ -1,5 +1,5 @@
 # TemplateParser
-Template Parser is template engine written in C# </br>
+Template Parser is template engine written in C# using .NET Core </br>
 The Template Parser Class can perform from simple text substitution or complex object substitution
 
 ### DOCS
