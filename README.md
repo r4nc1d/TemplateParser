@@ -106,3 +106,46 @@ var template = @"Hello my name is {Name} {LastName}";
 var result = TemplateParser.Render(template, variableValues, Placeholder.Brace);
 ```
 
+using a complex object
+```csharp
+public class Person
+{
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public Address Address { get; set; }
+}
+
+public class Address
+{
+    public string Street { get; set; }
+
+    public int PostalCode { get; set; }
+
+    // Circular property
+    public Person Person { get; set; }
+}
+
+var person = new Person
+{
+    FirstName = "Jon",
+    LastName = "Doe",
+    Address = new Address
+    {
+        Street = "Melkbos",
+        PostalCode = 90210,
+        Person = new Person
+        {
+            FirstName = "Jon",
+            LastName = "Doe",
+        }
+    }
+};
+
+var variableValues = person.GetProperties();
+var template = @"Hello my name is {Name} {LastName}";
+
+var result = TemplateParser.Render(template, variableValues, Placeholder.Brace);
+
+```
