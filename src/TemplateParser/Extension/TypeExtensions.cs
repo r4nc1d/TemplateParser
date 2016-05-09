@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace TemplateParser
+namespace TemplateParser.Extension
 {
     public static class TypeExtensions
     {
@@ -64,7 +64,7 @@ namespace TemplateParser
 
         private static void ThrowExceptionWhenSourceArgumentIsNull()
         {
-            throw new ArgumentNullException("Zource", "Unable to convert object to a dictionary. The source object is null.");
+            throw new ArgumentNullException(@"Unable to convert object to a dictionary. The source object is null.");
         }
 
         private class VisitorState
@@ -86,57 +86,6 @@ namespace TemplateParser
             {
                 return value is T;
             }
-        }
-    }
-
-    public class PropertyMetaData
-    {
-        public Type Type { get; set; }
-        public object Value { get; set; }
-
-        public static object SanitizeProperty(PropertyMetaData propertyMetaData)
-        {
-            if (propertyMetaData.Type == typeof(string))
-            {
-                return propertyMetaData.Value ?? "";
-            }
-
-            if (propertyMetaData.Type == typeof(int))
-            {
-                return propertyMetaData.Value ?? 0;
-            }
-
-            if (propertyMetaData.Type == typeof(int?))
-            {
-                return propertyMetaData.Value ?? 0;
-            }
-
-            if (propertyMetaData.Type == typeof(long))
-            {
-                return propertyMetaData.Value ?? 0;
-            }
-
-            if (propertyMetaData.Type == typeof(long?))
-            {
-                return propertyMetaData.Value ?? 0;
-            }
-
-            if (propertyMetaData.Type == typeof(decimal))
-            {
-                return propertyMetaData.Value ?? 0;
-            }
-
-            if (propertyMetaData.Type == typeof(float))
-            {
-                return propertyMetaData.Value ?? 0;
-            }
-
-            if (propertyMetaData.Type == typeof(DateTime))
-            {
-                return propertyMetaData.Value ?? DateTime.Now;
-            }
-
-            return null;
         }
     }
 }

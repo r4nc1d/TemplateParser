@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using TemplateParser.Enum;
+using TemplateParser.Extension;
 using Xunit;
 
 namespace TemplateParser.Test
@@ -11,8 +13,8 @@ namespace TemplateParser.Test
         {
             _variableValues = new Dictionary<string, PropertyMetaData>
             {
-                {"Name", new PropertyMetaData() {Type = typeof (string), Value = "Jon"}},
-                {"LastName", new PropertyMetaData() {Type = typeof (string), Value = "Doe"}},
+                {"Name", new PropertyMetaData {Type = typeof (string), Value = "Jon"}},
+                {"LastName", new PropertyMetaData {Type = typeof (string), Value = "Doe"}}
             };
         }
 
@@ -36,7 +38,7 @@ namespace TemplateParser.Test
         // Given i have an empty template
         // When i try to parse it 
         // Then should throw an exception
-        [Theory()]
+        [Theory]
         [InlineData(null)]
         public void Constructor_InvalidName_ExceptionThrown(string name)
         {
@@ -46,7 +48,7 @@ namespace TemplateParser.Test
         // Given i have an template with either an brace or bracket for an placeholder
         // When i try to parse it
         // Then i should be able to match the string
-        [Theory()]
+        [Theory]
         [InlineData(@"Hello my name is [Name] [LastName]", Placeholder.Bracket)]
         [InlineData(@"Hello my name is {Name} {LastName}", Placeholder.Brace)]
         public void ParseTemplate_ShouldBeAbleToMatch_Test(string template, Placeholder placeholder)
@@ -61,13 +63,13 @@ namespace TemplateParser.Test
         // Given i have a search pattern
         // When the placeholder is either brace or bracket 
         // Then i should be able to match the pattern
-        [Theory()]
+        [Theory]
         [InlineData(Placeholder.Brace, @"\{([a-z0-9_.\-]+)\}")]
         [InlineData(Placeholder.Bracket, @"\[([a-z0-9_.\-]+)\]")]
         public void GetSearchPattern_ShouldBeAbleToMatch_Test(Placeholder placeholder, string pattern)
         {
             // When
-            var result = TemplateParser.GetSearchPattern(placeholder);
+            var result = placeholder.GetSearchPattern();
 
             // Then
             Assert.Equal(pattern, result);
