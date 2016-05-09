@@ -1,28 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using TemplateParser.Enum;
+using TemplateParser.Extension;
+using Match = TemplateParser.Enum.Match;
 
 namespace TemplateParser
 {
-    public enum Placeholder
-    {
-        Brace,
-        Bracket
-    }
     public class TemplateParser
     {
         /// <summary>Template string associated with the instance</summary>
         public readonly string TemplateString;
-
-        private static readonly Dictionary<char, string> EscapeChars = new Dictionary<char, string>
-        {
-            {'r', "\r"},
-            {'n', "\n"},
-            {'\\', "\\"},
-            {'{', "{"},
-        };
 
         /// <summary>Create a new instance with the specified template string</summary>
         /// <param name="templateString">Template string associated with the instance</param>
@@ -53,61 +41,41 @@ namespace TemplateParser
             if (templateString == null)
                 throw new ArgumentNullException(nameof(templateString));
 
-            var pattern = GetSearchPattern(placeholder);
+            var pattern = placeholder.GetSearchPattern();
 
             return Regex.Replace(templateString, pattern, match =>
             {
                 switch (match.Value[0])
                 {
-                    case '\\':
-                        if (EscapeChars.ContainsKey(match.Value[1]))
-                            return EscapeChars[match.Value[1]];
+                    case (char)Match.Backslash:
+                        if (SpecialCharacters.EscapeChars.ContainsKey(match.Value[1]))
+                            return SpecialCharacters.EscapeChars[match.Value[1]];
                         break;
-                    case '{':
-                        if (variables.ContainsKey(match.Groups[1].Value))
-                            return GetValue(variables, match.Groups[1].Value);
-                        break;
-                    case '[':
+                    case (char)Match.CurlyBracket:
+                    case (char)Match.SquareBracket:
                         if (variables.ContainsKey(match.Groups[1].Value))
                             return GetValue(variables, match.Groups[1].Value);
                         break;
                 }
-                return "";
+                return string.Empty;
             }, RegexOptions.IgnoreCase);
-        }
-
-        /// <summary>
-        /// Returns the matching pattern
-        /// </summary>
-        /// <param name="placeholder">Placehoder for either the [Brace] or {Bracket}</param>
-        /// <returns></returns>
-        public static string GetSearchPattern(Placeholder placeholder)
-        {
-            string pattern;
-            switch (placeholder)
-            {
-                case Placeholder.Bracket:
-                    pattern = @"\[([a-z0-9_.\-]+)\]";
-                    break;
-                case Placeholder.Brace:
-                    pattern = @"\{([a-z0-9_.\-]+)\}";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(placeholder), placeholder, null);
-            }
-            return pattern;
         }
 
         private static string GetValue(IDictionary<string, PropertyMetaData> placeholders, string key)
         {
+            var returnValue = GetPropertyMetaData(placeholders, key);
+            return PropertyMetaData.SanitizeProperty(returnValue) == null ?
+                string.Empty : PropertyMetaData.SanitizeProperty(returnValue).ToString();
+        }
+
+        private static PropertyMetaData GetPropertyMetaData(IDictionary<string, PropertyMetaData> placeholders, string key)
+        {
             PropertyMetaData returnValue;
             if (!placeholders.TryGetValue(key, out returnValue))
             {
-                returnValue = new PropertyMetaData { Type = typeof(string), Value = "" };
+                returnValue = new PropertyMetaData {Type = typeof (string), Value = string.Empty};
             }
-
-            return PropertyMetaData.SanitizeProperty(returnValue) == null ?
-                "" : PropertyMetaData.SanitizeProperty(returnValue).ToString();
+            return returnValue;
         }
     }
 }
