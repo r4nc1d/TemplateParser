@@ -64,8 +64,8 @@ namespace TemplateParser
         private static string GetValue(IDictionary<string, PropertyMetaData> placeholders, string key)
         {
             var returnValue = GetPropertyMetaData(placeholders, key);
-            return PropertyMetaData.SanitizeProperty(returnValue) == null ?
-                string.Empty : PropertyMetaData.SanitizeProperty(returnValue).ToString();
+            return PropertyMetaData.SanitizeProject(returnValue) == null ?
+                string.Empty : PropertyMetaData.SanitizeProject(returnValue).ToString();
         }
 
         private static PropertyMetaData GetPropertyMetaData(IDictionary<string, PropertyMetaData> placeholders, string key)
