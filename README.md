@@ -10,7 +10,9 @@ The Template parser library allows for two types of placeholders either braces o
 ```csharp
 public enum Placeholder
 {
+    [Description(@"\{([a-z0-9_.\-]+)\}")]
     Brace,
+    [Description(@"\[([a-z0-9_.\-]+)\]")]
     Bracket
 }
 ```
@@ -44,26 +46,23 @@ public static string Render(string templateString, IDictionary<string, PropertyM
     if (templateString == null)
         throw new ArgumentNullException(nameof(templateString));
 
-    var pattern = GetSearchPattern(placeholder);
+    var pattern = placeholder.GetSearchPattern();
 
     return Regex.Replace(templateString, pattern, match =>
     {
         switch (match.Value[0])
         {
-            case '\\':
-                if (EscapeChars.ContainsKey(match.Value[1]))
-                    return EscapeChars[match.Value[1]];
+            case (char)Match.Backslash:
+                if (SpecialCharacters.EscapeChars.ContainsKey(match.Value[1]))
+                    return SpecialCharacters.EscapeChars[match.Value[1]];
                 break;
-            case '{':
-                if (variables.ContainsKey(match.Groups[1].Value))
-                    return GetValue(variables, match.Groups[1].Value);
-                break;
-            case '[':
+            case (char)Match.CurlyBracket:
+            case (char)Match.SquareBracket:
                 if (variables.ContainsKey(match.Groups[1].Value))
                     return GetValue(variables, match.Groups[1].Value);
                 break;
         }
-        return "";
+        return string.Empty;
     }, RegexOptions.IgnoreCase);
 }
 ```
