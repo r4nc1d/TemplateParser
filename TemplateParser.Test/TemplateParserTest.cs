@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TemplateParser.Enum;
-using TemplateParser.Extension;
 using Xunit;
 
 namespace TemplateParser.Test

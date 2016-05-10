@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using TemplateParser.Enum;
-using TemplateParser.Extension;
-using Match = TemplateParser.Enum.Match;
 
 namespace TemplateParser
 {
@@ -64,8 +61,8 @@ namespace TemplateParser
         private static string GetValue(IDictionary<string, PropertyMetaData> placeholders, string key)
         {
             var returnValue = GetPropertyMetaData(placeholders, key);
-            return PropertyMetaData.SanitizeProject(returnValue) == null ?
-                string.Empty : PropertyMetaData.SanitizeProject(returnValue).ToString();
+            return PropertyMetaData.SanitizeProperty(returnValue) == null ?
+                string.Empty : PropertyMetaData.SanitizeProperty(returnValue).ToString();
         }
 
         private static PropertyMetaData GetPropertyMetaData(IDictionary<string, PropertyMetaData> placeholders, string key)

@@ -26,7 +26,7 @@ namespace TemplateParser
             return propertyMetaData.Value ?? defaultValue;
         }
 
-        public static object SanitizeProject(PropertyMetaData propertyMetaData)
+        public static object SanitizeProperty(PropertyMetaData propertyMetaData)
         {
             return SanitizeFunctions[propertyMetaData.Type](propertyMetaData);
         }

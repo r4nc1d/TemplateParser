@@ -1,7 +1,6 @@
 using System.ComponentModel;
-using TemplateParser.Enum;
 
-namespace TemplateParser.Extension
+namespace TemplateParser
 {
     public static class EnumExtensions
     {

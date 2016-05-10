@@ -1,4 +1,4 @@
-namespace TemplateParser.Enum
+namespace TemplateParser
 {
     public enum Match
     {
