@@ -138,7 +138,7 @@ var person = new Person
 };
 
 var variableValues = person.GetProperties();
-var template = @"Hello my name is {Name} {LastName}";
+var template = @"Hello my name is {Person.FirstName} {Person.LastName}";
 
 var result = TemplateParser.Render(template, variableValues, Placeholder.Brace);
 

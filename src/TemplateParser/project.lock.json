@@ -13,21 +13,18 @@
       "Microsoft.CSharp >= 4.0.0",
       "System.Collections >= 4.0.0",
       "System.Linq >= 4.0.0",
-      "System.Runtime >= 4.0.10",
       "System.Threading >= 4.0.0"
     ],
     ".NETFramework,Version=v4.5.2": [
       "Microsoft.CSharp >= 4.0.0",
       "System.Collections >= 4.0.0",
       "System.Linq >= 4.0.0",
-      "System.Runtime >= 4.0.10",
       "System.Threading >= 4.0.0"
     ],
     ".NETFramework,Version=v4.6.1": [
       "Microsoft.CSharp >= 4.0.0",
       "System.Collections >= 4.0.10",
       "System.Linq >= 4.0.0",
-      "System.Runtime >= 4.0.20",
       "System.Threading >= 4.0.10"
     ]
   },
