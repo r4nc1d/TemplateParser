@@ -2,11 +2,27 @@
   "locked": false,
   "version": 2,
   "targets": {
+    ".NETFramework,Version=v4.5.1": {},
+    ".NETFramework,Version=v4.5.2": {},
     ".NETFramework,Version=v4.6.1": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
     "": [],
+    ".NETFramework,Version=v4.5.1": [
+      "Microsoft.CSharp >= 4.0.0",
+      "System.Collections >= 4.0.0",
+      "System.Linq >= 4.0.0",
+      "System.Runtime >= 4.0.10",
+      "System.Threading >= 4.0.0"
+    ],
+    ".NETFramework,Version=v4.5.2": [
+      "Microsoft.CSharp >= 4.0.0",
+      "System.Collections >= 4.0.0",
+      "System.Linq >= 4.0.0",
+      "System.Runtime >= 4.0.10",
+      "System.Threading >= 4.0.0"
+    ],
     ".NETFramework,Version=v4.6.1": [
       "Microsoft.CSharp >= 4.0.0",
       "System.Collections >= 4.0.10",

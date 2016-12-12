@@ -8,3 +8,5 @@
 /src/TemplateParser/obj/Debug/net461
 /artifacts/bin/TemplateParser/src/TemplateParser
 /.vs
+/src/TemplateParser/obj/Debug
+/src/TemplateParser/bin/Debug

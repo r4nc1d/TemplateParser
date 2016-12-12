@@ -1,14 +1,31 @@
-﻿{
-  "version": "1.0.0",
+{
+  "version": "1.0.1",
   "buildOptions": {
     "emitEntryPoint": false,
     "preserveCompilationContext": true
   },
   "dependencies": {
-
-
+    
   },
   "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "Microsoft.CSharp": "4.0.0.0",
+        "System.Collections": "4.0.0.0",
+        "System.Linq": "4.0.0.0",
+        "System.Runtime": "4.0.10.0",
+        "System.Threading": "4.0.0.0"
+      }
+    },
+    "net452": {
+      "frameworkAssemblies": {
+        "Microsoft.CSharp": "4.0.0.0",
+        "System.Collections": "4.0.0.0",
+        "System.Linq": "4.0.0.0",
+        "System.Runtime": "4.0.10.0",
+        "System.Threading": "4.0.0.0"
+      }
+    },
     "net461": {
       "frameworkAssemblies": {
         "Microsoft.CSharp": "4.0.0.0",
