@@ -17,6 +17,8 @@ namespace TemplateParser.Test
         }
 
         // Given i have an template
+
+
         // When i parse it
         // Then i should be able to match the string 
         [Fact]

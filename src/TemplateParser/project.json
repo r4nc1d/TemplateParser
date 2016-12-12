@@ -1,20 +1,35 @@
 ﻿{
-  "version": "1.0.0-*",
-  "description": "TemplateParser Class Library",
-  "authors": [ "Jacques" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
-
-  "dependencies": {
-    "Microsoft.CSharp": "4.0.1-beta-23516",
-    "System.Collections": "4.0.11-beta-23516",
-    "System.Linq": "4.0.1-beta-23516",
-    "System.Runtime": "4.0.21-beta-23516",
-    "System.Threading": "4.0.11-beta-23516"
+  "version": "1.0.0",
+  "buildOptions": {
+    "emitEntryPoint": false,
+    "preserveCompilationContext": true
   },
+  "dependencies": {
 
+
+  },
   "frameworks": {
-    "dnx451": { }
+    "net461": {
+      "frameworkAssemblies": {
+        "Microsoft.CSharp": "4.0.0.0",
+        "System.Collections": "4.0.10.0",
+        "System.Linq": "4.0.0.0",
+        "System.Runtime": "4.0.20.0",
+        "System.Threading": "4.0.10.0"
+      }
+    }
+  },
+  "publishOptions": {
+    "include": [
+      "Assets",
+      "appsettings.json",
+      "appsettings.production.json",
+      "web.config"
+    ]
+  },
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
   }
 }

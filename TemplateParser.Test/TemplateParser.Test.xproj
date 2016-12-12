@@ -9,7 +9,7 @@
     <ProjectGuid>ad2ce345-c8f4-4f06-8091-322bba5c991c</ProjectGuid>
     <RootNamespace>TemplateParser.Test</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
-    <OutputPath Condition="'$(OutputPath)'=='' ">..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
@@ -22,4 +22,9 @@
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties project_1json__JSONSchema="http://json.schemastore.org/project-1.0.0-rc1" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

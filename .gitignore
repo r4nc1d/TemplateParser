@@ -3,3 +3,8 @@
 ################################################################################
 
 /TemplateParser.Test/bin/Debug/net461
+/TemplateParser.Test/obj/Debug/net461
+/src/TemplateParser/bin/Debug/net461
+/src/TemplateParser/obj/Debug/net461
+/artifacts/bin/TemplateParser/src/TemplateParser
+/.vs
